@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hbb"
+    tools:context=".Quiz2">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pop_quiz"
+        android:fontFamily="@font/aldrich"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/title_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <!-- Question 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q6_text"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/q6_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:id="@+id/q6_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q6_a" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q6_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q6_b" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q6_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q6_c" android:textColor="@color/black"/>
+            </RadioGroup>
+
+            <!-- Question 2 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q7_text"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/q7_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:id="@+id/q7_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q7_a" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q7_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q7_b" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q7_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q7_c" android:textColor="@color/black"/>
+            </RadioGroup>
+
+            <!-- Question 3 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q8_text"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/q8_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:id="@+id/q8_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q8_a" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q8_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q8_b" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q8_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q8_c" android:textColor="@color/black"/>
+            </RadioGroup>
+
+            <!-- Question 4 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q9_text"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/q9_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:id="@+id/q9_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q9_a" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q9_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q9_b" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q9_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q9_c" android:textColor="@color/black"/>
+            </RadioGroup>
+
+            <!-- Question 5 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/q10_text"
+                android:fontFamily="@font/aldrich"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/q10_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:id="@+id/q10_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q10_a" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q10_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q10_b" android:textColor="@color/black"/>
+                <RadioButton android:id="@+id/q10_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q10_c" android:textColor="@color/black"/>
+            </RadioGroup>
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:text="@string/submit_button"
+                android:background="@drawable/custombutton"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"/>
+
+            <!-- Result Display -->
+            <TextView
+                android:id="@+id/result_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

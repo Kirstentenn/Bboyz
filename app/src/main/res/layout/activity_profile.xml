@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hbb"
+    tools:context=".Profile">
+
+    <ImageView
+        android:id="@+id/prof1"
+        android:layout_width="170dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.556"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iconnn" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="361dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/n1"
+        android:fontFamily="@font/aldrich"
+        android:background="@drawable/roundedcorners"
+        android:minHeight="10dp"
+        android:padding="18dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#808080"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prof1" />
+
+    <TextView
+        android:id="@+id/profile_course"
+        android:layout_width="361dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/roundedcorners"
+        android:fontFamily="@font/aldrich"
+        android:minHeight="10dp"
+        android:padding="18dp"
+        android:text="@string/c1"
+        android:textColor="@android:color/black"
+        android:textColorHint="#808080"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_name" />
+
+    <TextView
+        android:id="@+id/profile_email"
+        android:layout_width="361dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/roundedcorners"
+        android:fontFamily="@font/aldrich"
+        android:minHeight="10dp"
+        android:padding="18dp"
+        android:text="@string/em1"
+        android:textColor="@android:color/black"
+        android:textColorHint="#808080"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_course" />
+
+    <TextView
+        android:id="@+id/finished_courses_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/category"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_email" />
+
+    <TextView
+        android:id="@+id/fincor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/aldrich"
+        android:minHeight="10dp"
+        android:padding="10dp"
+        android:text="@string/fincor"
+        android:textColor="@android:color/black"
+        android:textColorHint="#808080"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:maxLines="4"
+        android:scrollbars="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finished_courses_label" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/custombutton"
+        android:text="@string/button3"
+        android:fontFamily="@font/aldrich"
+        android:textColor="@color/black"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fincor" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

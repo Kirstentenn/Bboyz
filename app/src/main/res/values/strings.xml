@@ -1,0 +1,137 @@
+<resources>
+    <string name="app_name">JavaStart</string>
+    <string name="image_desc">Your Image Description</string>
+    <string name="start_button">START!</string>
+    <string name="developer_text">Developed by Bboyz Developers</string>
+    <string name="hint_email">Enter your email</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="no_account">No Account Yet?</string>
+    <string name="name">Enter your Name</string>
+    <string name="course">Enter your Course</string>
+    <string name="sign_in">Sign In</string>
+    <string name="menu">MENU</string>
+    <string name="select_category">Please select a Category:</string>
+    <string name="next">Next</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+    <string name="what_is_java">What is Java?</string>
+    <string name="button3">Back</string>
+
+    <string name="java_full_info"><![CDATA[
+    Why Use Java?\n\n
+    Java is a versatile and powerful programming language widely used for several reasons:\n\n
+    <b>Platform Independence:</b> Runs on Windows, Mac, Linux, and more.\n
+    <b>Popularity:</b> Large and active developer community.\n
+    <b>Job Market:</b> High demand for Java developers.\n
+    <b>Ease of Learning:</b> Simple syntax, beginner-friendly.\n
+    <b>Open Source:</b> Free and community-driven.\n
+    <b>Security:</b> Strong security features for safe applications.\n
+    <b>Performance:</b> Fast and efficient for large-scale projects.\n
+    <b>Object-Oriented:</b> Encourages modular and reusable code.\n\n
+    -------------------------------------\n\n
+    Java was created in 1995 and is now used on over 3 billion devices.\n\n
+    <b>Java is used for:</b>\n
+    • Mobile apps (Android)\n
+    • Desktop & web applications\n
+    • Web & application servers\n
+    • Games & database management\n\n
+    Java’s versatility makes it a top choice for software development.
+    ]]></string>
+
+    <string name="q1_text">1. What is Java mainly used for?</string>
+    <string name="q1_a">Web Development</string>
+    <string name="q1_b">Mobile &amp; Web Applications</string>
+    <string name="q1_c">Only for Windows Apps</string>
+
+    <string name="q2_text">2. What does JVM stand for?</string>
+    <string name="q2_a">Java Visual Machine</string>
+    <string name="q2_b">Java Virtual Machine</string>
+    <string name="q2_c">Java Vendor Model</string>
+
+    <string name="q3_text">3. What is a key feature of Java?</string>
+    <string name="q3_a">Platform Independence</string>
+    <string name="q3_b">Weak Security</string>
+    <string name="q3_c">Complex Syntax</string>
+
+    <string name="q4_text">4. Which company currently owns Java?</string>
+    <string name="q4_a">Google</string>
+    <string name="q4_b">Oracle</string>
+    <string name="q4_c">Microsoft</string>
+
+    <string name="q5_text">5. What is the programming paradigm of Java?</string>
+    <string name="q5_a">Object-Oriented</string>
+    <string name="q5_b">Procedural</string>
+    <string name="q5_c">Functional</string>
+
+    <string name="submit_button">Submit</string>
+    <string name="result_text">Your Score:</string>
+
+
+    <string name="next_button">Next</string>
+    <string name="pop_quiz">Pop Quiz!</string>
+    <string name="c1">Course: </string>
+    <string name="n1">Name: </string>
+    <string name="em1">Email: </string>
+    <string name="fincor">Finished Courses: </string>
+    <string name="displaycor">courses</string>
+
+    <string name="button5">Exit to Log In</string>
+    <string name="whataredt">What are Data Types?</string>
+
+    <string name="q6_text">1. Which of the following is a primitive data type in Java?</string>
+    <string name="q6_a">String</string>
+    <string name="q6_b">Int</string>
+    <string name="q6_c">ArrayList</string>
+
+    <string name="q7_text">2. What is the default value of an uninitialized boolean variable in Java?</string>
+    <string name="q7_a">True</string>
+    <string name="q7_b">False</string>
+    <string name="q7_c">Null</string>
+
+    <string name="q8_text">3. Which data type is used to store a single character in Java?</string>
+    <string name="q8_a">String</string>
+    <string name="q8_b">Char</string>
+    <string name="q8_c">Character</string>
+
+    <string name="q9_text">4. What is the size of an int in Java?</string>
+    <string name="q9_a">16 bits</string>
+    <string name="q9_b">32 bits</string>
+    <string name="q9_c">64 bits</string>
+
+    <string name="q10_text">5. Which keyword is used to define a constant variable in Java?</string>
+    <string name="q10_a">Final</string>
+    <string name="q10_b">Const</string>
+    <string name="q10_c">Static</string>
+
+    <string name="what_is_array">What are Arrays and Arraylists?</string>
+
+    <string name="q11_text">1. Which of the following best describes an array in Java?</string>
+    <string name="q11_a">A fixed-size collection of elements of the same type</string>
+    <string name="q11_b">A resizable collection of elements</string>
+    <string name="q11_c">A key-value pair data structure</string>
+
+    <string name="q12_text">2. How do you declare an integer array in Java?</string>
+    <string name="q12_a">int array = new int[5];</string>
+    <string name="q12_b">int[] array = new int[5];</string>
+    <string name="q12_c">ArrayList&lt;int&gt; array = new ArrayList&lt;int&gt;();</string>
+
+    <string name="q13_text">3. Which method is used to add an element to an ArrayList?</string>
+    <string name="q13_a">insert()</string>
+    <string name="q13_b">append()</string>
+    <string name="q13_c">add()</string>
+
+    <string name="q14_text">4. What happens if you try to access an index that is out of bounds in an array?</string>
+    <string name="q14_a">The program assigns a default value</string>
+    <string name="q14_b">An ArrayIndexOutOfBoundsException is thrown</string>
+    <string name="q14_c">The program skips the statement</string>
+
+    <string name="q15_text">5. What is the primary advantage of using an ArrayList over an array?</string>
+    <string name="q15_a">ArrayLists are faster</string>
+    <string name="q15_b">ArrayLists have a fixed size</string>
+    <string name="q15_c">ArrayLists can dynamically resize</string>
+    <string name="category">Finished Courses:</string>
+
+</resources>
