@@ -23,88 +23,88 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
 
     private EditText emailInput, passwordInput;
-    private Button login, signup;
+    private Button loginButton, signupBtn; // Added signupBtn to make that button work too
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // MATCHING YOUR XML IDs: email, password, login, signup
         emailInput = findViewById(R.id.email);
         passwordInput = findViewById(R.id.password);
-        login = findViewById(R.id.login);
-        signup = findViewById(R.id.signup);
+        loginButton = findViewById(R.id.login);
+        signupBtn = findViewById(R.id.signup);
 
-        login.setOnClickListener(v -> {
-            String enteredEmail = emailInput.getText().toString().trim();
-            String enteredPassword = passwordInput.getText().toString().trim();
+        loginButton.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
 
-            if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
-                Toast.makeText(Login.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                return;
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(Login.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                performLogin(email, password);
             }
+        });
 
-            // URL of your PHP login API
-            String url = "http://10.0.2.2/javastart_api/login.php";
+        // Makes the "Sign Up" button actually take you to the Sign Up screen
+        signupBtn.setOnClickListener(v -> {
+            startActivity(new Intent(Login.this, SignUp.class));
+        });
+    }
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                    response -> {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String status = jsonObject.getString("status");
+    private void performLogin(String email, String password) {
+        String url = "http://10.0.2.2/javastart_api/login.php";
 
-                            if (status.equals("success")) {
-                                String name = jsonObject.getString("name");
-                                String role = jsonObject.getString("role");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String status = jsonObject.getString("status");
 
-                                Toast.makeText(Login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        if (status.equals("success")) {
+                            SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
 
-                                // Save session
-                                SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putString("name", name);
-                                editor.putString("email", enteredEmail);
-                                editor.putString("role", role);
-                                editor.apply();
+                            editor.putString("email", email);
+                            editor.putString("name", jsonObject.getString("name"));
+                            editor.putString("role", jsonObject.getString("role"));
 
-                                // Route user/admin
-                                Intent intent;
-                                if (role.equals("admin")) {
-                                    intent = new Intent(Login.this, AdminMenu.class);
-                                } else {
-                                    intent = new Intent(Login.this, Menu.class);
-                                }
-
-                                startActivity(intent);
-                                finish();
-
-                            } else {
-                                Toast.makeText(Login.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                            // Save course from the DB so Profile activity works
+                            if (jsonObject.has("course")) {
+                                editor.putString("course", jsonObject.getString("course"));
                             }
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(Login.this, "Error parsing response", Toast.LENGTH_SHORT).show();
+                            editor.apply();
+
+                            String role = jsonObject.getString("role");
+                            if (role.equalsIgnoreCase("admin")) {
+                                startActivity(new Intent(Login.this, AdminMenu.class));
+                            } else {
+                                startActivity(new Intent(Login.this, Menu.class));
+                            }
+                            finish();
+
+                        } else {
+                            Toast.makeText(Login.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    },
-                    error -> Toast.makeText(Login.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show()
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("email", enteredEmail);
-                    params.put("password", enteredPassword);
-                    return params;
-                }
-            };
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(Login.this, "Server response error", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(Login.this, "Network Error: Check XAMPP", Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("password", password);
+                return params;
+            }
+        };
 
-            RequestQueue queue = Volley.newRequestQueue(Login.this);
-            queue.add(stringRequest);
-        });
-
-        signup.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, SignUp.class);
-            startActivity(intent);
-        });
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
     }
 }

@@ -15,17 +15,18 @@ import java.io.InputStreamReader;
 
 public class DataTypes extends AppCompatActivity {
 
-    private static final String TAG = "DataTypes"; // For logging
+    private static final String TAG = "DataTypes";
     private String topic;
-    private TextView datatypes; // Added missing TextView declaration
+    private TextView datatypesDisplay;
 
+    // This launcher handles the return from Quiz2 and tells Menu.java to save progress
     private final ActivityResultLauncher<Intent> quizLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("completedTopic", topic);
                     setResult(RESULT_OK, resultIntent);
-                    finish();
+                    finish(); // Close lesson and return to Menu
                 }
             });
 
@@ -34,23 +35,23 @@ public class DataTypes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_types);
 
-        // Initialize the missing TextView
-        datatypes = findViewById(R.id.whataredatatypes);
-
-        // Load text from raw resource
-        TextView datatypes = findViewById(R.id.whataredatatypes);
-        datatypes.setText(readRawTextFile(R.raw.datatypes));
-
+        // UI Initialization
+        datatypesDisplay = findViewById(R.id.whataredatatypes);
         topic = getIntent().getStringExtra("topic");
+
+        // Load content from raw text file (res/raw/datatypes.txt)
+        String content = readRawTextFile(R.raw.datatypes);
+        datatypesDisplay.setText(content);
 
         Button backButton = findViewById(R.id.button3);
         backButton.setOnClickListener(view -> finish());
 
         Button nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(view -> {
+            // Data Types uses Quiz2
             Intent intent = new Intent(DataTypes.this, Quiz2.class);
             intent.putExtra("topic", topic);
-            quizLauncher.launch(intent); // Use new method instead of startActivityForResult
+            quizLauncher.launch(intent);
         });
     }
 
@@ -66,7 +67,7 @@ public class DataTypes extends AppCompatActivity {
             }
             reader.close();
         } catch (IOException e) {
-            Log.e(TAG, "Error reading file", e); // Use logging instead of printStackTrace()
+            Log.e(TAG, "Error reading file", e);
         }
         return stringBuilder.toString();
     }

@@ -18,7 +18,6 @@ public class Array extends AppCompatActivity {
     private static final String TAG = "Array"; // For logging
     private String topic;
     private TextView array; // Class-level TextView variable
-// nigga
     private final ActivityResultLauncher<Intent> quizLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {

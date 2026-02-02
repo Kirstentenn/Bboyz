@@ -3,28 +3,37 @@ package com.example.javastart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Quiz2 extends AppCompatActivity {
 
     private RadioGroup q6Group, q7Group, q8Group, q9Group, q10Group;
     private Button submitButton;
-    private String topic; // Stores the topic name
-    private final String[] correctAnswers = {"B", "B", "B", "B", "A"}; // Correct answers
+    private String topic;
+    private final String[] correctAnswers = {"B", "B", "B", "B", "A"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz2);
 
-        // Get the topic from intent
         topic = getIntent().getStringExtra("topic");
+        if (topic == null) topic = "Quiz 2"; // Fallback name
 
-        // Initialize UI components
         q6Group = findViewById(R.id.q6_group);
         q7Group = findViewById(R.id.q7_group);
         q8Group = findViewById(R.id.q8_group);
@@ -32,15 +41,12 @@ public class Quiz2 extends AppCompatActivity {
         q10Group = findViewById(R.id.q10_group);
         submitButton = findViewById(R.id.submit_button);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (areAllQuestionsAnswered()) {
-                    int score = calculateScore();
-                    showScorePopup(score);
-                } else {
-                    showIncompleteQuizAlert();
-                }
+        submitButton.setOnClickListener(v -> {
+            if (areAllQuestionsAnswered()) {
+                int score = calculateScore();
+                showScorePopup(score);
+            } else {
+                showIncompleteQuizAlert();
             }
         });
     }
@@ -54,66 +60,69 @@ public class Quiz2 extends AppCompatActivity {
     }
 
     private void showIncompleteQuizAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Incomplete Quiz")
-                .setMessage("Please answer all questions before submitting the quiz.")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        new AlertDialog.Builder(this)
+                .setTitle("Incomplete Quiz")
+                .setMessage("Please answer all questions before submitting.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private int calculateScore() {
         int score = 0;
-
-        // Correct answer IDs
-        int correctQ6 = R.id.q6_b;
-        int correctQ7 = R.id.q7_b;
-        int correctQ8 = R.id.q8_b;
-        int correctQ9 = R.id.q9_b;
-        int correctQ10 = R.id.q10_a;
-
-        if (q6Group.getCheckedRadioButtonId() == correctQ6) score++;
-        if (q7Group.getCheckedRadioButtonId() == correctQ7) score++;
-        if (q8Group.getCheckedRadioButtonId() == correctQ8) score++;
-        if (q9Group.getCheckedRadioButtonId() == correctQ9) score++;
-        if (q10Group.getCheckedRadioButtonId() == correctQ10) score++;
-
+        if (q6Group.getCheckedRadioButtonId() == R.id.q6_b) score++;
+        if (q7Group.getCheckedRadioButtonId() == R.id.q7_b) score++;
+        if (q8Group.getCheckedRadioButtonId() == R.id.q8_b) score++;
+        if (q9Group.getCheckedRadioButtonId() == R.id.q9_b) score++;
+        if (q10Group.getCheckedRadioButtonId() == R.id.q10_a) score++;
         return score;
     }
 
     private void showScorePopup(int score) {
-        // Format correct answers
         StringBuilder answersText = new StringBuilder();
         for (int i = 0; i < correctAnswers.length; i++) {
-            answersText.append("Q").append(i + 1).append(": ").append(correctAnswers[i]).append("\n");
+            answersText.append("Q").append(i + 6).append(": ").append(correctAnswers[i]).append("\n");
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Quiz Result")
+        new AlertDialog.Builder(this)
+                .setTitle("Quiz Result")
                 .setMessage("Your Score: " + score + "/5\n\nCorrect Answers:\n" + answersText)
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        markTopicAsComplete();
-                    }
-                });
+                .setPositiveButton("OK", (dialog, which) -> {
+                    saveScoreToDatabase(score); // DATABASE SAVE
+                    markTopicAsComplete();
+                })
+                .show();
+    }
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    private void saveScoreToDatabase(int score) {
+        String url = "http://10.0.2.2/javastart_api/save_score.php";
+
+        SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+        String userEmail = sp.getString("email", "unknown");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    // Score saved on server
+                },
+                error -> Toast.makeText(Quiz2.this, "Could not sync score to server", Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", userEmail);
+                params.put("topic", topic);
+                params.put("score", String.valueOf(score));
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
     private void markTopicAsComplete() {
-        // Send the completed topic back to Menu.java
         Intent resultIntent = new Intent();
         resultIntent.putExtra("completedTopic", topic);
         setResult(RESULT_OK, resultIntent);
-        finish(); // Close the quiz activity
+        finish();
     }
 }

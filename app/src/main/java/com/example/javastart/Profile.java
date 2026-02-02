@@ -1,69 +1,47 @@
 package com.example.javastart;
 
-import android.content.Intent; // Added for navigation
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.TextView;
-
-import android.widget.Button; // Added for button functionality
+import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Profile extends AppCompatActivity {
 
-    private TextView nameTextView, courseTextView, emailTextView, finishedCoursesTextView, finishedCoursesLabel; // Added finishedCoursesLabel
-    private Button button4; // Added button4
+    private TextView nameText, courseText, emailText, finishedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile); // Ensure this matches your profile layout file
+        setContentView(R.layout.activity_profile);
 
-        // Initialize TextViews
-        nameTextView = findViewById(R.id.profile_name);
-        courseTextView = findViewById(R.id.profile_course);
-        emailTextView = findViewById(R.id.profile_email);
-        finishedCoursesTextView = findViewById(R.id.fincor); // Added for finished courses
-        finishedCoursesLabel = findViewById(R.id.finished_courses_label); // Added label
+        nameText = findViewById(R.id.profile_name);
+        courseText = findViewById(R.id.profile_course);
+        emailText = findViewById(R.id.profile_email);
+        finishedText = findViewById(R.id.fincor);
+        Button backBtn = findViewById(R.id.button4);
 
-        // Enable text wrapping and scrolling for courseTextView
-        courseTextView.setMovementMethod(new ScrollingMovementMethod());
+        finishedText.setMovementMethod(new ScrollingMovementMethod());
 
-        // Initialize button4
-        button4 = findViewById(R.id.button4);
+        SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
+        nameText.setText(sp.getString("name", "User"));
+        courseText.setText(sp.getString("course", "N/A"));
+        emailText.setText(sp.getString("email", "N/A"));
 
-        // Set button4 to navigate back to Menu.java
-        button4.setOnClickListener(v -> {
-            Intent intent = new Intent(Profile.this, Menu.class);
-            startActivity(intent);
-            finish(); // Close the current activity
-        });
-
-        // Retrieve user data from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        String name = sharedPreferences.getString("name", "No Name");
-        String course = sharedPreferences.getString("course", "No Course");
-        String email = sharedPreferences.getString("email", "No Email");
-
-        // Set retrieved data to TextViews
-        nameTextView.setText(name);
-        courseTextView.setText(course);
-        emailTextView.setText(email);
-
-        // Load finished courses from SharedPreferences
-        Set<String> finishedCourses = sharedPreferences.getStringSet("FinishedCourses", new java.util.HashSet<>());
-
-        finishedCoursesLabel.setText("Finished Courses:"); // Always display the label
-
-        if (finishedCourses != null && !finishedCourses.isEmpty()) {
-            StringBuilder coursesList = new StringBuilder();
-            for (String courseName : finishedCourses) {
-                coursesList.append("• ").append(courseName).append("\n"); // Bullet points
-            }
-            finishedCoursesTextView.setText(coursesList.toString().trim());
+        // Load progress
+        Set<String> finished = sp.getStringSet("FinishedCourses", new HashSet<>());
+        if (finished != null && !finished.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : finished) sb.append("• ").append(s).append("\n");
+            finishedText.setText(sb.toString().trim());
         } else {
-            finishedCoursesTextView.setText("No finished courses yet.");
+            finishedText.setText("No courses completed yet.");
         }
+
+        backBtn.setOnClickListener(v -> finish());
     }
 }
