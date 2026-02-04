@@ -2,28 +2,21 @@ package com.example.javastart;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Array extends AppCompatActivity {
-
-    private static final String TAG = "Array"; // For logging
     private String topic;
-    private TextView array; // Class-level TextView variable
+    private TextView contentTextView;
+
     private final ActivityResultLauncher<Intent> quizLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("completedTopic", topic);
-                    setResult(RESULT_OK, resultIntent);
+                if (result.getResultCode() == RESULT_OK) {
                     finish();
                 }
             });
@@ -31,39 +24,40 @@ public class Array extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // This ensures the current screen shows your lesson XML
         setContentView(R.layout.activity_array);
 
-        // Corrected TextView reference
-        array = findViewById(R.id.what_are_arraylist);
-        array.setText(readRawTextFile(R.raw.array)); // Now setting text correctly
+        contentTextView = findViewById(R.id.what_are_arraylist);
 
         topic = getIntent().getStringExtra("topic");
+        if (topic == null) topic = "Arrays";
 
-        Button backButton = findViewById(R.id.button3);
-        backButton.setOnClickListener(view -> finish());
+        loadLessonContent();
 
         Button nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(view -> {
             Intent intent = new Intent(Array.this, Quiz3.class);
             intent.putExtra("topic", topic);
-            quizLauncher.launch(intent); // Use new method instead of startActivityForResult
+            quizLauncher.launch(intent);
         });
+
+        findViewById(R.id.button3).setOnClickListener(v -> finish());
     }
 
-    private String readRawTextFile(int resId) {
-        InputStream inputStream = getResources().openRawResource(resId);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-
+    private void loadLessonContent() {
         try {
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
+            InputStream inputStream = getResources().openRawResource(R.raw.array);
+            Scanner scanner = new Scanner(inputStream);
+            StringBuilder builder = new StringBuilder();
+
+            while (scanner.hasNextLine()) {
+                builder.append(scanner.nextLine()).append("\n");
             }
-            reader.close();
-        } catch (IOException e) {
-            Log.e(TAG, "Error reading file", e); // Use logging instead of printStackTrace()
+            scanner.close();
+
+            contentTextView.setText(builder.toString());
+        } catch (Exception e) {
+            contentTextView.setText("Error: array.txt not found in res/raw");
         }
-        return stringBuilder.toString();
     }
 }

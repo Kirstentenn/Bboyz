@@ -50,9 +50,9 @@
                     android:id="@+id/q11_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <RadioButton android:id="@+id/q11_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q11_a" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q11_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q11_b" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q11_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q11_c" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q11_a" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q11_a" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q11_b" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q11_b" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q11_c" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q11_c" android:textColor="@color/black"/>
                 </RadioGroup>
 
                 <!-- Question 2 -->
@@ -69,9 +69,9 @@
                     android:id="@+id/q12_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <RadioButton android:id="@+id/q12_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q12_a" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q12_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q12_b" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q12_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q12_c" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q12_a" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q12_a" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q12_b" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q12_b" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q12_c" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q12_c" android:textColor="@color/black"/>
                 </RadioGroup>
 
                 <!-- Question 3 -->
@@ -88,9 +88,9 @@
                     android:id="@+id/q13_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <RadioButton android:id="@+id/q13_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q13_a" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q13_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q13_b" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q13_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q13_c" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q13_a" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q13_a" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q13_b" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q13_b" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q13_c" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q13_c" android:textColor="@color/black"/>
                 </RadioGroup>
 
                 <!-- Question 4 -->
@@ -107,9 +107,9 @@
                     android:id="@+id/q14_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <RadioButton android:id="@+id/q14_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q14_a" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q14_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q14_b" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q14_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q14_c" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q14_a" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q14_a" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q14_b" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q14_b" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q14_c" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q14_c" android:textColor="@color/black"/>
                 </RadioGroup>
 
                 <!-- Question 5 -->
@@ -126,9 +126,9 @@
                     android:id="@+id/q15_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <RadioButton android:id="@+id/q15_a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q15_a" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q15_b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q15_b" android:textColor="@color/black"/>
-                    <RadioButton android:id="@+id/q15_c" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/q15_c" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q15_a" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q15_a" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q15_b" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q15_b" android:textColor="@color/black"/>
+                    <RadioButton android:id="@+id/q15_c" android:layout_width="wrap_content" android:fontFamily="@font/aldrich" android:layout_height="wrap_content" android:text="@string/q15_c" android:textColor="@color/black"/>
                 </RadioGroup>
 
                 <!-- Submit Button -->

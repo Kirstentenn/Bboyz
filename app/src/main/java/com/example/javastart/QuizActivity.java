@@ -1,108 +1,117 @@
 package com.example.javastart;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class QuizActivity extends AppCompatActivity {
-
-    private RadioGroup q1Group, q2Group, q3Group, q4Group, q5Group;
-    private Button submitButton;
-    private String topic;
-    private final String[] correctAnswers = {"B", "C", "A", "B", "C"};
+    private RadioGroup q1G, q2G, q3G, q4G, q5G;
+    private Button submitBtn;
+    private final String TOPIC = "What is Java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        topic = getIntent().getStringExtra("topic");
-        if (topic == null) topic = "What is Java";
+        q1G = findViewById(R.id.q1_group);
+        q2G = findViewById(R.id.q2_group);
+        q3G = findViewById(R.id.q3_group);
+        q4G = findViewById(R.id.q4_group);
+        q5G = findViewById(R.id.q5_group);
+        submitBtn = findViewById(R.id.submit_button);
 
-        q1Group = findViewById(R.id.q1_group);
-        q2Group = findViewById(R.id.q2_group);
-        q3Group = findViewById(R.id.q3_group);
-        q4Group = findViewById(R.id.q4_group);
-        q5Group = findViewById(R.id.q5_group);
-        submitButton = findViewById(R.id.submit_button);
-
-        submitButton.setOnClickListener(v -> {
-            if (areAllQuestionsAnswered()) {
-                int score = calculateScore();
-                showScorePopup(score);
+        submitBtn.setOnClickListener(v -> {
+            if (isInputValid()) {
+                submitBtn.setEnabled(false);
+                int score = calculateAndHighlight();
+                new Handler(Looper.getMainLooper()).postDelayed(() -> showResult(score), 400);
             } else {
-                Toast.makeText(this, "Please answer all questions", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Answer all questions!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private boolean areAllQuestionsAnswered() {
-        return q1Group.getCheckedRadioButtonId() != -1 &&
-                q2Group.getCheckedRadioButtonId() != -1 &&
-                q3Group.getCheckedRadioButtonId() != -1 &&
-                q4Group.getCheckedRadioButtonId() != -1 &&
-                q5Group.getCheckedRadioButtonId() != -1;
+    private int calculateAndHighlight() {
+        int s = 0;
+        s += verifyAnswer(q1G, R.id.q1_b);
+        s += verifyAnswer(q2G, R.id.q2_b);
+        s += verifyAnswer(q3G, R.id.q3_a);
+        s += verifyAnswer(q4G, R.id.q4_b);
+        s += verifyAnswer(q5G, R.id.q5_a);
+        return s;
     }
 
-    private int calculateScore() {
-        int score = 0;
-        if (q1Group.getCheckedRadioButtonId() == R.id.q1_b) score++;
-        if (q2Group.getCheckedRadioButtonId() == R.id.q2_c) score++;
-        if (q3Group.getCheckedRadioButtonId() == R.id.q3_a) score++;
-        if (q4Group.getCheckedRadioButtonId() == R.id.q4_b) score++;
-        if (q5Group.getCheckedRadioButtonId() == R.id.q5_c) score++;
-        return score;
+    private int verifyAnswer(RadioGroup group, int correctId) {
+        int selected = group.getCheckedRadioButtonId();
+        RadioButton correctRb = findViewById(correctId);
+        if (correctRb != null) correctRb.setTextColor(Color.parseColor("#388E3C"));
+        if (selected == correctId) return 1;
+        RadioButton wrongRb = findViewById(selected);
+        if (wrongRb != null) wrongRb.setTextColor(Color.RED);
+        return 0;
     }
 
-    private void showScorePopup(int score) {
+    private boolean isInputValid() {
+        return q1G.getCheckedRadioButtonId() != -1 && q2G.getCheckedRadioButtonId() != -1 &&
+                q3G.getCheckedRadioButtonId() != -1 && q4G.getCheckedRadioButtonId() != -1 &&
+                q5G.getCheckedRadioButtonId() != -1;
+    }
+
+    // --- UPDATED: Method to show score AND correct answers ---
+    private void showResult(int score) {
+        StringBuilder message = new StringBuilder();
+        message.append("Final Score: ").append(score).append("/5\n\n");
+        message.append("Correct Answers:\n");
+        message.append("1. ").append(((RadioButton) findViewById(R.id.q1_b)).getText()).append("\n");
+        message.append("2. ").append(((RadioButton) findViewById(R.id.q2_b)).getText()).append("\n");
+        message.append("3. ").append(((RadioButton) findViewById(R.id.q3_a)).getText()).append("\n");
+        message.append("4. ").append(((RadioButton) findViewById(R.id.q4_b)).getText()).append("\n");
+        message.append("5. ").append(((RadioButton) findViewById(R.id.q5_a)).getText()).append("\n");
+
         new AlertDialog.Builder(this)
                 .setTitle("Quiz Result")
-                .setMessage("Your Score: " + score + "/5")
+                .setMessage(message.toString())
                 .setCancelable(false)
-                .setPositiveButton("OK", (dialog, which) -> {
-                    saveScoreToDatabase(score);
-                    markTopicAsComplete();
-                })
+                .setPositiveButton("OK", (d, w) -> syncScore(score))
                 .show();
     }
 
-    private void saveScoreToDatabase(int score) {
+    private void syncScore(int score) {
         String url = "http://10.0.2.2/javastart_api/save_score.php";
         SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
-        String userEmail = sp.getString("email", "unknown");
+        String email = sp.getString("email", "unknown");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                response -> {},
-                error -> Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show()
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", userEmail);
-                params.put("topic", topic);
-                params.put("score", String.valueOf(score));
-                return params;
+        StringRequest req = new StringRequest(Request.Method.POST, url,
+                res -> {
+                    setResult(RESULT_OK); // Tells Menu to refresh UI
+                    finish();
+                },
+                err -> {
+                    setResult(RESULT_OK);
+                    finish();
+                }) {
+            @Override protected Map<String, String> getParams() {
+                Map<String, String> p = new HashMap<>();
+                p.put("email", email);
+                p.put("topic", TOPIC);
+                p.put("score", String.valueOf(score));
+                return p;
             }
         };
-        Volley.newRequestQueue(this).add(stringRequest);
-    }
-
-    private void markTopicAsComplete() {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("completedTopic", topic);
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        Volley.newRequestQueue(this).add(req);
     }
 }

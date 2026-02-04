@@ -39,7 +39,17 @@ public class SignUp extends AppCompatActivity {
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
-        // 10.0.2.2 is for Emulator. Use your PC IP if using a real phone.
+        if (name.isEmpty() || course.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!email.toLowerCase().endsWith("@gmail.com")) {
+            emailInput.setError("Only @gmail.com addresses are allowed");
+            emailInput.requestFocus();
+            return;
+        }
+
         String url = "http://10.0.2.2/javastart_api/register.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
@@ -47,18 +57,18 @@ public class SignUp extends AppCompatActivity {
                     try {
                         JSONObject obj = new JSONObject(response);
                         if (obj.getString("status").equals("success")) {
-                            Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(this, Login.class));
                             finish();
                         } else {
                             Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
-                        Log.e("JSON_ERROR", "Response was: " + response);
-                        Toast.makeText(this, "Server error. Check Logcat.", Toast.LENGTH_LONG).show();
+                        Log.e("JSON_ERROR", "Response: " + response);
+                        Toast.makeText(this, "Server error, check connection", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> Toast.makeText(this, "Connection failed. Check XAMPP.", Toast.LENGTH_SHORT).show()
+                error -> Toast.makeText(this, "Connection failed. Check XAMPP/IP.", Toast.LENGTH_SHORT).show()
         ) {
             @Override
             protected Map<String, String> getParams() {

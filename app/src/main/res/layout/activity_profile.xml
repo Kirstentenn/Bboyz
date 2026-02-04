@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/hbb"
@@ -10,113 +10,126 @@
 
     <ImageView
         android:id="@+id/prof1"
-        android:layout_width="170dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/iconnn" />
 
     <TextView
         android:id="@+id/profile_name"
-        android:layout_width="361dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="20dp"
-        android:text="@string/n1"
-        android:fontFamily="@font/aldrich"
         android:background="@drawable/roundedcorners"
-        android:minHeight="10dp"
-        android:padding="18dp"
+        android:padding="15dp"
         android:textColor="@android:color/black"
-        android:textColorHint="#808080"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/prof1" />
 
     <TextView
-        android:id="@+id/profile_course"
-        android:layout_width="361dp"
+        android:id="@+id/profile_email"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/roundedcorners"
-        android:fontFamily="@font/aldrich"
-        android:minHeight="10dp"
-        android:padding="18dp"
-        android:text="@string/c1"
+        android:padding="15dp"
         android:textColor="@android:color/black"
-        android:textColorHint="#808080"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_name" />
 
-    <TextView
-        android:id="@+id/profile_email"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/roundedcorners"
-        android:fontFamily="@font/aldrich"
-        android:minHeight="10dp"
-        android:padding="18dp"
-        android:text="@string/em1"
-        android:textColor="@android:color/black"
-        android:textColorHint="#808080"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_course" />
-
-    <TextView
-        android:id="@+id/finished_courses_label"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/category"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_email" />
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonBack"
+        app:layout_constraintTop_toBottomOf="@id/profile_email">
 
-    <TextView
-        android:id="@+id/fincor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/aldrich"
-        android:minHeight="10dp"
-        android:padding="10dp"
-        android:text="@string/fincor"
-        android:textColor="@android:color/black"
-        android:textColorHint="#808080"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:maxLines="4"
-        android:scrollbars="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/finished_courses_label" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/finished_courses_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/aldrich"
+                android:text="QUIZ PROGRESS"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fincor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/roundedcorners"
+                android:minHeight="80dp"
+                android:padding="15dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_retake_java"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/custombutton"
+                android:fontFamily="@font/aldrich"
+                android:text="Retake: What is Java?"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_retake_datatypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/custombutton"
+                android:fontFamily="@font/aldrich"
+                android:text="Retake: Data Types"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_retake_arrays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/custombutton"
+                android:fontFamily="@font/aldrich"
+                android:text="Retake: Arrays &amp; ArrayLists"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/custombutton"
-        android:text="@string/button3"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/transparent"
         android:fontFamily="@font/aldrich"
+        android:text="BACK TO MENU"
         android:textColor="@color/black"
-        android:padding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fincor" />
-
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

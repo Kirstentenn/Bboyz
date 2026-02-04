@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdminMenu" android:exported="false" />
         <activity android:name=".Array" android:exported="false" />
         <activity android:name=".Quiz3" android:exported="false" />
         <activity android:name=".Quiz2" android:exported="false" />

@@ -53,6 +53,7 @@
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/aldrich"
         android:text="@string/next_button"
         android:textSize="18sp"
         android:background="@drawable/custombutton"
@@ -65,6 +66,7 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="88dp"
+        android:fontFamily="@font/aldrich"
         android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/transparent"

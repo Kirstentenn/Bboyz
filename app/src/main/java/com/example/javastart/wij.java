@@ -14,20 +14,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class wij extends AppCompatActivity {
-
     private static final String TAG = "wij";
     private String topic;
     private TextView javaInfoDisplay;
 
-    // Handles the transition back from QuizActivity to the Menu
+    // This catches the 'finish()' from QuizActivity and closes this screen too
     private final ActivityResultLauncher<Intent> quizLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("completedTopic", topic);
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
-                }
+                // When Quiz finishes, we finish this Info screen to return to Menu
+                finish();
             });
 
     @Override
@@ -35,19 +30,14 @@ public class wij extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wij);
 
-        // UI Initialization
         javaInfoDisplay = findViewById(R.id.java_full_info);
         topic = getIntent().getStringExtra("topic");
 
-        // Load content from res/raw/java_info.txt
         javaInfoDisplay.setText(readRawTextFile(R.raw.java_info));
 
-        Button backButton = findViewById(R.id.button3);
-        backButton.setOnClickListener(view -> finish());
+        findViewById(R.id.button3).setOnClickListener(view -> finish());
 
-        Button nextButton = findViewById(R.id.next_button);
-        nextButton.setOnClickListener(view -> {
-            // Transitions to the Quiz for this specific topic
+        findViewById(R.id.next_button).setOnClickListener(view -> {
             Intent intent = new Intent(wij.this, QuizActivity.class);
             intent.putExtra("topic", topic);
             quizLauncher.launch(intent);
@@ -55,19 +45,15 @@ public class wij extends AppCompatActivity {
     }
 
     private String readRawTextFile(int resId) {
-        StringBuilder stringBuilder = new StringBuilder();
-        // try-with-resources ensures the stream is closed automatically
-        try (InputStream inputStream = getResources().openRawResource(resId);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
+        StringBuilder sb = new StringBuilder();
+        try (InputStream is = getResources().openRawResource(resId);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
-            }
+            while ((line = reader.readLine()) != null) sb.append(line).append("\n");
         } catch (IOException e) {
             Log.e(TAG, "Error reading raw file", e);
             return "Error loading content.";
         }
-        return stringBuilder.toString();
+        return sb.toString();
     }
 }

@@ -59,6 +59,7 @@
         android:padding="8dp"
         android:text="@string/start_button"
         android:textColor="#000000"
+        android:fontFamily="@font/aldrich"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
