@@ -61,7 +61,6 @@ public class Login extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         if (jsonObject.getString("status").equals("success")) {
-                            // Store user data in SharedPreferences
                             SharedPreferences sp = getSharedPreferences("UserSession", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("email", email);

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -65,10 +66,13 @@ public class SignUp extends AppCompatActivity {
                         }
                     } catch (JSONException e) {
                         Log.e("JSON_ERROR", "Response: " + response);
-                        Toast.makeText(this, "Server error, check connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Server formatting error", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> Toast.makeText(this, "Connection failed. Check XAMPP/IP.", Toast.LENGTH_SHORT).show()
+                error -> {
+                    Log.e("VOLLEY_ERROR", error.toString());
+                    Toast.makeText(this, "Connection failed. Check XAMPP/IP.", Toast.LENGTH_SHORT).show();
+                }
         ) {
             @Override
             protected Map<String, String> getParams() {
@@ -80,6 +84,12 @@ public class SignUp extends AppCompatActivity {
                 return params;
             }
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         Volley.newRequestQueue(this).add(request);
     }
 }
