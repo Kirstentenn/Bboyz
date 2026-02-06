@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
-    private EditText nameInput, courseInput, emailInput, passwordInput;
+    // Added surnameInput here
+    private EditText nameInput, surnameInput, courseInput, emailInput, passwordInput;
     private Button signUpButton;
 
     @Override
@@ -25,7 +26,9 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        // Mapping the new ID you created
         nameInput = findViewById(R.id.Name);
+        surnameInput = findViewById(R.id.surname); // Make sure this ID matches your XML exactly
         courseInput = findViewById(R.id.Course);
         emailInput = findViewById(R.id.email1);
         passwordInput = findViewById(R.id.pw2);
@@ -36,11 +39,13 @@ public class SignUp extends AppCompatActivity {
 
     private void performRegistration() {
         String name = nameInput.getText().toString().trim();
+        String surname = surnameInput.getText().toString().trim(); // Capture surname
         String course = courseInput.getText().toString().trim();
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
-        if (name.isEmpty() || course.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        // Updated validation to include surname
+        if (name.isEmpty() || surname.isEmpty() || course.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -56,13 +61,14 @@ public class SignUp extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 response -> {
                     try {
-                        JSONObject obj = new JSONObject(response);
-                        if (obj.getString("status").equals("success")) {
-                            Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(this, Login.class));
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getString("status").equals("success")) {
+                            Toast.makeText(SignUp.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignUp.this, Login.class);
+                            startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(this, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Log.e("JSON_ERROR", "Response: " + response);
@@ -77,7 +83,9 @@ public class SignUp extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("name", name);
+                // These keys MUST match the $_POST['key'] in your PHP script
+                params.put("firstname", name);
+                params.put("surname", surname);
                 params.put("course", course);
                 params.put("email", email);
                 params.put("password", password);
